@@ -1,6 +1,6 @@
 # Roamlet — marketing site
 
-The landing page for [Roamlet](../travel-companion), the offline travel companion.
+The landing page for [Roamlet](https://roamlet-site.vercel.app/), the offline travel companion.
 
 This is a **completely standalone project**. It has its own `package.json` and its own
 `node_modules`, imports nothing from the app codebase, and can be deployed, versioned or deleted
