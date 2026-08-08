@@ -38,10 +38,6 @@ npm run typecheck  # types only, no build
 | `CONTACT_EMAIL` | Used in the footer, the contact page and every `mailto:` on it. |
 | `DEVELOPER` | Name, role, location, bio and the three links on the contact page. |
 
-> **`CONTACT_EMAIL` is prefilled with the address configured on the machine that generated this
-> site** (`prot.das15@gmail.com`). It is a work address and it will be public. Change it
-> before you deploy if that is not what you want.
-
 Content lives in four more files, kept separate from layout so you can edit copy without reading JSX:
 
 - **[`src/content/features.ts`](src/content/features.ts)** — the six scroll-told feature beats, the
@@ -78,34 +74,6 @@ first — the site will inherit the fix:
 
 ---
 
-## Placeholders still to fill
-
-Everything needing your input is wrapped in `[square brackets]` so it is greppable:
-
-```bash
-grep -rn "\[" src/config.ts src/content/ src/pages/ | grep -v "\[\]" | grep "\["
-```
-
-At the time of writing that is:
-
-1. `APK_SIZE` in `src/config.ts` — the size of the APK you upload to Drive.
-2. `DEVELOPER.location`, GitHub and LinkedIn URLs in `src/config.ts`.
-3. `RELEASES[0].date` in `src/content/releases.ts` — the release date for v0.1.0.
-4. The last roadmap line in `releases.ts`.
-5. The social-proof note in `src/pages/Home.tsx` (`Trust` section) — install numbers or testimonials,
-   **once you have real ones**. It is deliberately empty rather than invented.
-6. `LEGAL_LAST_UPDATED` in `src/content/legal.ts` — the date shown on both legal pages.
-7. One answer in `src/content/faqs.ts` — whether the app will ever charge.
-
-`MIN_ANDROID` is set to **Android 7.0+**, which is the app's `minSdkVersion = 24` in
-`android/build.gradle` — what the APK will actually install on. The higher bar for *running* the AI
-(64-bit, and RAM per model) lives in the "Which phone do I need?" FAQ instead, so the line under the
-download button stays short. Those RAM figures come from the app's own `estimatedPeakRamMb`
-estimates and its memory gate (`total × 0.72 ≥ required + 400 MB`), not from measurement on real
-devices — revise them if you build a device matrix.
-
----
-
 ## Screenshots
 
 The three phones in the "In the hand" section are **not photographs** — they are the app's screens
@@ -125,8 +93,7 @@ To swap in real captures instead:
 
 ## Design notes
 
-The look follows [illoca.com](https://illoca.com)'s structure and motion, using Roamlet's own
-material:
+The look follows Roamlet's own material theme and structure:
 
 - **Typography-led.** No stock photography anywhere. The hero is one headline at 40px on mobile and
   88px on desktop, and the page is built from type, whitespace and hairline rules.
@@ -178,22 +145,7 @@ The build is a static `dist/`. Because the site uses real routes (`/whats-new`, 
 than hash routes, the host must rewrite unknown paths to `index.html` — otherwise a direct link or a
 refresh on those pages 404s. Config for the two common hosts is already committed.
 
-**Netlify** — build `npm run build`, publish `dist`. [`public/_redirects`](public/_redirects) is
-picked up automatically.
-
 **Vercel** — build `npm run build`, output `dist`. [`vercel.json`](vercel.json) provides the rewrite.
-
-**Cloudflare Pages** — build `npm run build`, output `dist`. Add a `_redirects` equivalent or enable
-SPA mode.
-
-**GitHub Pages** — needs one extra step, since Pages cannot rewrite. After building, copy the entry
-point to a 404 handler:
-
-```bash
-npm run build && cp dist/index.html dist/404.html
-```
-
-**Any static host / S3** — upload `dist/`, and point the 404 handler at `index.html`.
 
 ---
 
