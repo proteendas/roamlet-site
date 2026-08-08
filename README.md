@@ -115,13 +115,21 @@ either condition, sections still fade in; only the parallax and the scroll-linke
 scroll-animation experience and side-by-side layouts from 1024px. The hero is padded so that the
 headline, subtext and Download button all clear the fold at 375×667 as well as at 1440×900.
 
+**Navigation** switches at 768px ([`src/components/Nav.tsx`](src/components/Nav.tsx), `DESKTOP_QUERY`).
+Above it, the links and the CTA sit inline in the bar. Below it they collapse into a hamburger that
+opens a full-height paper panel — three text links and a button will not fit a 375px bar without
+every one of them losing its tap target, and the panel lets the menu use the same oversized type as
+the rest of the page instead of shrinking to fit a strip. The panel locks the page behind it, closes
+on Escape, on any navigation, and on a resize past the breakpoint, and the two-bar icon crosses into
+an X. Add a link by appending to the `LINKS` array — desktop and mobile both read from it.
+
 ---
 
 ## The CTA
 
-One design, one label, four placements — nav (desktop only), hero, mid-page, and above the footer.
-It is an `<a href>` with `target="_blank" rel="noopener noreferrer"`, not a form, and the tap target
-is 44px minimum. Every instance carries the same note underneath saying it is a direct APK download
+One design, one label, four placements — the nav bar (inline on desktop, at the foot of the
+hamburger panel on mobile), the hero, mid-page, and above the footer. It is an `<a href>` with
+`target="_blank" rel="noopener noreferrer"`, not a form, and the tap target is 44px minimum. Every instance carries the same note underneath saying it is a direct APK download
 rather than a store listing, because a reader who expects Play and gets an "unknown sources" prompt
 has been surprised, and surprise is what loses the install.
 

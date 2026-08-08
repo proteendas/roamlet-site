@@ -32,7 +32,7 @@ export const DEVELOPER = {
   bio: 'Roamlet is a solo project: the app, the design system, the city-pack format and the content pipeline. It exists because every travel app I owned stopped working at the moment I actually needed it.',
   links: [
     {label: 'Email', value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}`},
-    {label: 'GitHub', value: '[github.com/your-handle]', href: '[https://github.com/proteendas]'},
-    {label: 'LinkedIn', value: '[linkedin.com/in/your-handle]', href: '[https://www.linkedin.com/in/proteen/]'},
+    {label: 'GitHub', value: '[github.com/proteendas]', href: 'https://github.com/proteendas/'},
+    {label: 'LinkedIn', value: '[linkedin.com/in/proteen]', href: 'https://www.linkedin.com/in/proteen/'},
   ],
 } as const;
