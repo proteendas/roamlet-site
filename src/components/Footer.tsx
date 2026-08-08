@@ -14,12 +14,21 @@ export function Footer() {
           </p>
         </div>
 
-        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.875rem]">
+        <nav
+          aria-label="Footer"
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.875rem] sm:justify-end"
+        >
           <Link to="/whats-new" className="text-ink-600 transition-colors hover:text-passport">
             What&rsquo;s new
           </Link>
           <Link to="/contact" className="text-ink-600 transition-colors hover:text-passport">
             Contact
+          </Link>
+          <Link to="/terms" className="text-ink-600 transition-colors hover:text-passport">
+            Terms of Use
+          </Link>
+          <Link to="/privacy" className="text-ink-600 transition-colors hover:text-passport">
+            Privacy Policy
           </Link>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

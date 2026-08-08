@@ -1,7 +1,10 @@
+import {Link} from 'react-router-dom';
+
 import {AppIcon} from '../components/Brand';
 import {DownloadButton, DownloadNote} from '../components/DownloadButton';
 import {Reveal} from '../components/motion';
 import {CONTACT_EMAIL, DEVELOPER} from '../config';
+import {FAQS, type Faq} from '../content/faqs';
 
 /**
  * Contact.
@@ -56,6 +59,22 @@ export function Contact() {
           </dl>
         </Reveal>
 
+        <Reveal delay={0.12}>
+          <section id="faq" className="mt-20 border-t border-paper-300 pt-12">
+            <h2 className="display text-[1.75rem] text-ink sm:text-[2.25rem]">
+              Questions people ask.
+            </h2>
+            <p className="mt-4 max-w-[52ch] text-[1rem] leading-relaxed text-ink-600">
+              If yours is not here, it belongs in the section below.
+            </p>
+            <div className="mt-8">
+              {FAQS.map(faq => (
+                <FaqItem key={faq.q} faq={faq} />
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
         <Reveal delay={0.14}>
           <section className="mt-20 border-t border-paper-300 pt-12">
             <h2 className="display text-[1.75rem] text-ink sm:text-[2.25rem]">What to write about.</h2>
@@ -94,9 +113,14 @@ export function Contact() {
               travellers who have not downloaded a model yet &mdash; a rate-limited cloud fallback
               that is skipped entirely once a local model is installed.
             </p>
-            <p className="mt-4 max-w-[54ch] text-[0.875rem] leading-relaxed text-ink-500">
-              [Link your full privacy policy here if you publish one.]
-            </p>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-[0.9375rem] font-medium">
+              <Link to="/privacy" className="text-passport transition-opacity hover:opacity-70">
+                Privacy Policy &rarr;
+              </Link>
+              <Link to="/terms" className="text-passport transition-opacity hover:opacity-70">
+                Terms of Use &rarr;
+              </Link>
+            </div>
           </section>
         </Reveal>
 
@@ -108,6 +132,40 @@ export function Contact() {
         </Reveal>
       </div>
     </main>
+  );
+}
+
+/**
+ * Native `<details>` rather than state and AnimatePresence: it is keyboard
+ * accessible and findable by the browser's own in-page search for free, and
+ * Ctrl-F failing to find an answer that is on the page is a worse bug than a
+ * missing open/close transition.
+ */
+function FaqItem({faq}: {faq: Faq}) {
+  return (
+    <details className="group border-t border-paper-300 last:border-b">
+      <summary className="flex cursor-pointer list-none items-start gap-4 py-5 [&::-webkit-details-marker]:hidden">
+        <h3 className="flex-1 text-[1.0625rem] font-semibold tracking-[-0.01em] text-ink transition-colors group-hover:text-passport">
+          {faq.q}
+        </h3>
+        <span
+          aria-hidden="true"
+          className="mt-1 shrink-0 text-ink-400 transition-transform duration-300 group-open:rotate-45"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path
+              d="M7 1v12M1 7h12"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
+      </summary>
+      <p className="max-w-[58ch] pb-6 text-[0.9375rem] leading-relaxed text-ink-600 sm:text-[1rem]">
+        {faq.a}
+      </p>
+    </details>
   );
 }
 

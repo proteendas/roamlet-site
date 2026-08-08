@@ -13,8 +13,13 @@ export const DOWNLOAD_LINK =
 export const CTA_LABEL = 'Download Roamlet';
 
 /** Shown under every CTA. It is a Drive file, not a store listing — say so. */
-export const APK_SIZE = '[APK size — e.g. 52 MB]';
-export const MIN_ANDROID = '[minimum Android version — e.g. Android 8.0+]';
+export const APK_SIZE = '[APK size — 52 MB]';
+/**
+ * The install floor, taken from the app's `minSdkVersion = 24`. This is what
+ * the APK will actually install on — the higher bar for running the AI (64-bit,
+ * and RAM per model) is spelled out in the FAQ rather than crammed in here.
+ */
+export const MIN_ANDROID = 'Android 7.0+';
 
 export const APP_NAME = 'Roamlet';
 export const APP_TAGLINE = 'A travel guide that works with the radio off.';

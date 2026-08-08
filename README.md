@@ -42,12 +42,39 @@ npm run typecheck  # types only, no build
 > site** (`prot.das15@gmail.com`). It is a work address and it will be public. Change it
 > before you deploy if that is not what you want.
 
-Content lives in two more files, kept separate from layout so you can edit copy without reading JSX:
+Content lives in four more files, kept separate from layout so you can edit copy without reading JSX:
 
 - **[`src/content/features.ts`](src/content/features.ts)** — the six scroll-told feature beats, the
   "also inside" grid, and the four trust stats.
 - **[`src/content/releases.ts`](src/content/releases.ts)** — the What's new page. Add a new object to
   the front of `RELEASES` for each build you ship.
+- **[`src/content/faqs.ts`](src/content/faqs.ts)** — the FAQ on the contact page.
+- **[`src/content/legal.ts`](src/content/legal.ts)** — Terms of Use and Privacy Policy. **See below.**
+
+### Legal pages
+
+`/terms` and `/privacy` are rendered from [`src/content/legal.ts`](src/content/legal.ts) by one
+shared shell, [`src/pages/Legal.tsx`](src/pages/Legal.tsx). Both are linked from the footer on every
+page and from the contact page.
+
+The prose is copied **verbatim** from the app's own legal screens
+(`src/features/settings/LegalScreens.tsx` in the travel-companion repo) — same document, same
+wording. It is not a summary and must not become one: the web page and the in-app screen are the
+same agreement, and a marketing site that softens its own terms is worse than having none.
+
+**When you edit the app's legal screens, edit `legal.ts` to match.** Nothing enforces this
+automatically. To check the two are still in sync, normalise whitespace and confirm every section
+body from `legal.ts` still appears in the app's source.
+
+Two things in that copied text describe the app, not the site, and are worth fixing **in the app**
+first — the site will inherit the fix:
+
+1. Both documents say account deletion lives at *Settings → Account*. Account settings have since
+   moved behind the profile button on the home screen.
+2. The Privacy Policy's "Your rights" section points at "the support channel listed on the app's
+   store page". There is no store page — the app is a direct APK. Each legal page carries a
+   "Questions about this document" block with the real contact address so a reader is not left
+   without a route, but the sentence itself still needs correcting at source.
 
 ---
 
@@ -61,13 +88,21 @@ grep -rn "\[" src/config.ts src/content/ src/pages/ | grep -v "\[\]" | grep "\["
 
 At the time of writing that is:
 
-1. `APK_SIZE` and `MIN_ANDROID` in `src/config.ts` — the file size and minimum Android version.
+1. `APK_SIZE` in `src/config.ts` — the size of the APK you upload to Drive.
 2. `DEVELOPER.location`, GitHub and LinkedIn URLs in `src/config.ts`.
 3. `RELEASES[0].date` in `src/content/releases.ts` — the release date for v0.1.0.
 4. The last roadmap line in `releases.ts`.
 5. The social-proof note in `src/pages/Home.tsx` (`Trust` section) — install numbers or testimonials,
    **once you have real ones**. It is deliberately empty rather than invented.
-6. The privacy-policy link on `src/pages/Contact.tsx`.
+6. `LEGAL_LAST_UPDATED` in `src/content/legal.ts` — the date shown on both legal pages.
+7. One answer in `src/content/faqs.ts` — whether the app will ever charge.
+
+`MIN_ANDROID` is set to **Android 7.0+**, which is the app's `minSdkVersion = 24` in
+`android/build.gradle` — what the APK will actually install on. The higher bar for *running* the AI
+(64-bit, and RAM per model) lives in the "Which phone do I need?" FAQ instead, so the line under the
+download button stays short. Those RAM figures come from the app's own `estimatedPeakRamMb`
+estimates and its memory gate (`total × 0.72 ≥ required + 400 MB`), not from measurement on real
+devices — revise them if you build a device matrix.
 
 ---
 

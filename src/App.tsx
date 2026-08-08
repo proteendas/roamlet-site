@@ -5,6 +5,7 @@ import {Footer} from './components/Footer';
 import {Nav} from './components/Nav';
 import {Contact} from './pages/Contact';
 import {Home} from './pages/Home';
+import {Privacy, Terms} from './pages/Legal';
 import {WhatsNew} from './pages/WhatsNew';
 
 export default function App() {
@@ -18,6 +19,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/whats-new" element={<WhatsNew />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
             {/* Anything else is the landing page — a marketing site should never 404. */}
             <Route path="*" element={<Home />} />
           </Routes>

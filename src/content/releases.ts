@@ -18,7 +18,7 @@ export interface Release {
 export const RELEASES: Release[] = [
   {
     version: '0.1.0',
-    date: '[release date]',
+    date: '08/06/2024',
     summary:
       'The first build you can install. Everything below already works offline once a city and a model are on the device.',
     added: [
